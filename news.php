@@ -66,7 +66,7 @@
                  */
 
                 // Etape 1: Ouvrir une connexion avec la base de donnée.
-                $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
+                $mysqli = new mysqli("localhost", "solena8", "H3ll0C0mm13!", "socialnetwork");
                 //verification
                 if ($mysqli->connect_errno)
                 {
@@ -110,7 +110,7 @@
 
                 {
 
-                    $content = $post['content'];
+
 
 
                     //la ligne ci-dessous doit etre supprimée mais regardez ce 
@@ -130,7 +130,7 @@
                         </h3>
                         <address><?php echo $post['author_name']?></address>
                         <div>
-                            <p> <?php echo $content?></p>
+                            <p> <?php echo $post['content']?></p>
                         </div>
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
