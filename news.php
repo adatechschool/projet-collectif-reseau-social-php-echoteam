@@ -72,11 +72,9 @@
                 {
                     echo "<article>";
                     echo("Échec de la connexion : " . $mysqli->connect_error);
-                    echo("<p>Indice: Vérifiez les parametres de <code>new mysqli(...</code></p>");
                     echo "</article>";
                     exit();
                 }
-                else { echo "youpi";}
 
                 // Etape 2: Poser une question à la base de donnée et récupérer ses informations
                 // cette requete vous est donnée, elle est complexe mais correcte, 
@@ -102,14 +100,19 @@
                 {
                     echo "<article>";
                     echo("Échec de la requete : " . $mysqli->error);
-                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
                     exit();
                 }
+
 
                 // Etape 3: Parcourir ces données et les ranger bien comme il faut dans du html
                 // NB: à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
                 while ($post = $lesInformations->fetch_assoc())
+
                 {
+
+                    $content = $post['content'];
+
+
                     //la ligne ci-dessous doit etre supprimée mais regardez ce 
                     //qu'elle affiche avant pour comprendre comment sont organisées les information dans votre 
                     echo "<pre>" . print_r($post, 1) . "</pre>";
@@ -126,7 +129,7 @@
                         </h3>
                         <address>AREMPLACER</address>
                         <div>
-                            <p>AREMPLACER</p>
+                            <p> <?php echo $content?></p>
                         </div>
                         <footer>
                             <small>♥ AREMPLACER </small>
