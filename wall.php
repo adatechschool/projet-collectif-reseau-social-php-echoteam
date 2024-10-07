@@ -57,7 +57,7 @@
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice :
+                    <p>Sur cette page vous trouverez tous les messages de l'utilisatrice :
                          <?php echo $user['alias'] ?>
                     </p>
                 </section>
