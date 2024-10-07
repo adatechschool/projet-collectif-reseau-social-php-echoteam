@@ -59,7 +59,7 @@
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les messages des utilisatrices
-                        auxquel est abonnée l'utilisatrice
+                        auxquel est abonnée l'utilisatrice :
                         <?php echo $user['alias'] ?>
                     </p>
 
