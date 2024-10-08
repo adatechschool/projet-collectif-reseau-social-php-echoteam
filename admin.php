@@ -31,7 +31,6 @@
          * Etape 1: Ouvrir une connexion avec la base de donnée.
          */
         // on va en avoir besoin pour la suite
-        $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
         //verification
         if ($mysqli->connect_errno)
         {
@@ -43,9 +42,9 @@
             <aside>
                 <h2>Mots-clés</h2>
                 <?php
-                /*
-                 * Etape 2 : trouver tous les mots clés
-                 */
+
+                include 'connexion.php';
+
                 $laQuestionEnSql = "SELECT * FROM `tags` LIMIT 50";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification

@@ -43,7 +43,8 @@
                 // Etape 1: récupérer l'id de l'utilisateur
                 $userId = intval($_GET['user_id']);
                 // Etape 2: se connecter à la base de donnée
-                $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
+                include 'connexion.php';
+
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "
                     SELECT users.* 
