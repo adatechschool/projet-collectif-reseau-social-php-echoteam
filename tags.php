@@ -68,7 +68,7 @@
             <main>
                 <?php
                 /**
-                 * Etape 3: récupérer tous les messages avec un mot clé donné
+                 * Etape 3: récupérer tous les messages avec un mot clé donné 
                  */
                 $laQuestionEnSql = "
                     SELECT posts.content,
