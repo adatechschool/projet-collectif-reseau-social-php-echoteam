@@ -5,6 +5,7 @@ include 'var_globale.php';
 
 echo $test;
 ?>
+        <div id="wrapper">
             <aside>
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>

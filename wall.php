@@ -22,8 +22,7 @@ echo $test;
              */
              -->
 
-            
-
+        <div id="wrapper">
             <aside>
                 <?php
                 /**

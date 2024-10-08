@@ -5,19 +5,8 @@ include 'var_globale.php';
 
 echo $test;
 ?>
-            <?php
-            /**
-             * Cette page est TRES similaire à wall.php. 
-             * Vous avez sensiblement à y faire la meme chose.
-             * Il y a un seul point qui change c'est la requete sql.
-             */
-            /**
-             * Etape 1: Le mur concerne un utilisateur en particulier
-             */
-            //$userId = intval($_GET['user_id']);
-            ?>
 
-
+        <div id="wrapper">
             <aside>
                 <?php
                

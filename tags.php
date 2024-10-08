@@ -15,14 +15,11 @@ echo $test;
              */
            -->
             
-            <?php
+
             /**
              * Etape 2: se connecter à la base de donnée
              */
-           
-
-            ?>
-
+        <div id="wrapper">
             <aside>
                 <?php
                 /**
