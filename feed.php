@@ -35,7 +35,7 @@
             /**
              * Etape 1: Le mur concerne un utilisateur en particulier
              */
-            $userId = intval($_GET['user_id']);
+            //$userId = intval($_GET['user_id']);
             ?>
 
 

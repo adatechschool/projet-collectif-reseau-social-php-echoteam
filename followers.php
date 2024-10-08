@@ -40,7 +40,7 @@
                 <?php
                 include 'connexion.php';
 
-                $userId = intval($_GET['user_id']);
+                //$userId = intval($_GET['user_id']);
                 // Etape 2: se connecter à la base de donnée
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "
@@ -56,7 +56,6 @@
                 while ($followers = $lesInformations->fetch_assoc()) {
                     ?>
                 
-     
                 <article>
                     <img src="user.jpg" alt="blason"/>
                     <h3><?php echo $followers['alias']?></h3>
