@@ -6,7 +6,8 @@ if (isset($_GET['user_id'])) {
 } else {
     $tagId = intval($_GET['tag_id']);
 }
-$test = '
+
+$head = '
     <head>
         <meta charset="utf-8">
         <title>ReSoC - Mur</title> 
@@ -31,5 +32,5 @@ $test = '
                 </ul>
             </nav>
         </header>';
-       
+
 ?>

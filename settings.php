@@ -2,8 +2,7 @@
 <html lang="fr">
 <?php
 include 'var_globale.php';
-
-echo $test;
+echo $head;
 ?>
     <div id="wrapper" class='profile'>
         <aside>
@@ -14,15 +13,8 @@ echo $test;
             </section>
         </aside>
         <main>
-            <?php
-            /**
-             * Etape 2: se connecter à la base de donnée
-             */
-         
 
-            /**
-             * Etape 3: récupérer les utilisateurs
-             */
+            <?php
             $laQuestionEnSql = "
                 SELECT users.*,
                 count(DISTINCT posts.id) as totalpost,
@@ -39,9 +31,7 @@ echo $test;
             if (!$lesInformations) {
                 echo("Échec de la requête : " . $mysqli->error);
             }
-            /**
-             * Etape 4: afficher les informations de chaque utilisateur
-             */
+
             while ($user = $lesInformations->fetch_assoc()) {
             ?>
                 <article class='parameters'>

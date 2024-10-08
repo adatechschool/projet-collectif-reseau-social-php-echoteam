@@ -3,20 +3,18 @@
 <?php
 include 'var_globale.php';
 
-echo $test;
+echo $head;
 ?>
 
         <div id="wrapper">
             <aside>
-                <?php
-               
 
+                <?php
                 $laQuestionEnSql = "SELECT * FROM `users` WHERE id= '$userId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();
-                //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par l'alias et effacer la ligne ci-dessous
-//                echo "<pre>" . print_r($user, 1) . "</pre>";
                 ?>
+
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
@@ -24,14 +22,12 @@ echo $test;
                         auxquel est abonnée l'utilisatrice :
                         <?php echo $user['alias'] ?>
                     </p>
-
                 </section>
             </aside>
             <main>
+
                 <?php
-                /**
-                 * Etape 3: récupérer tous les messages des abonnements
-                 */
+
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
@@ -54,10 +50,6 @@ echo $test;
                     echo("Échec de la requete : " . $mysqli->error);
                 }
 
-                /**
-                 * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-                 * A vous de retrouver comment faire la boucle while de parcours...
-                 */
                 while ($post = $lesInformations->fetch_assoc())
                 {
                 ?>                
@@ -75,9 +67,7 @@ echo $test;
                     </footer>
                 </article>
                 <?php }
-                // et de pas oublier de fermer ici vote while
                 ?>
-
 
             </main>
         </div>

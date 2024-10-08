@@ -2,8 +2,7 @@
 <html lang="fr">
 <?php
 include 'var_globale.php';
-
-echo $test;
+echo $head;
 ?>
         <div id="wrapper">
             <aside>
@@ -15,17 +14,11 @@ echo $test;
                         n° <?php echo intval($_GET['user_id']) ?>
                         suit les messages
                     </p>
-
                 </section>
             </aside>
             <main class='contacts'>
-                <?php
-                // Etape 1: récupérer l'id de l'utilisateur
-                //$userId = intval($_GET['user_id']);
-                // Etape 2: se connecter à la base de donnée
-                include 'var_globale.php';
 
-                // Etape 3: récupérer le nom de l'utilisateur
+                <?php
                 $laQuestionEnSql = " SELECT users.* 
                     FROM followers 
                     LEFT JOIN users ON users.id=followers.followed_user_id 
@@ -33,8 +26,7 @@ echo $test;
                     GROUP BY users.id
                     ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
-                // Etape 4: à vous de jouer
-                //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous 
+
                 while ($following = $lesInformations->fetch_assoc()) {
                     ?>
                 <article>
