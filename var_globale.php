@@ -1,5 +1,11 @@
-    <?php
+<?php
 
+$mysqli = new mysqli("localhost", "root", "", "socialnetwork");
+if (isset($_GET['user_id'])) {
+    $userId =intval($_GET['user_id']);
+} else {
+    $tagId = intval($_GET['tag_id']);
+}
 $test = '
     <head>
         <meta charset="utf-8">
@@ -25,5 +31,6 @@ $test = '
                 </ul>
             </nav>
         </header>
-        <div id="wrapper">
-';
+        <div id="wrapper"> ';
+?>
+

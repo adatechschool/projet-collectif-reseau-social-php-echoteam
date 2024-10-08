@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
     <?php
-    include 'test.php';
+    include 'var_globale.php';
 
     echo $test;
 ?>
@@ -17,7 +17,7 @@
             </aside>
             <main class='contacts'>
                 <?php
-                include 'connexion.php';
+                
 
                 //$userId = intval($_GET['user_id']);
                 // Etape 2: se connecter à la base de donnée
