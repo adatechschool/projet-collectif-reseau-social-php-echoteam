@@ -40,7 +40,7 @@
             /**
              * Etape 2: se connecter à la base de donnée
              */
-            $mysqli = new mysqli("localhost", "solena8", "H3ll0C0mm13!", "socialnetwork");
+            $mysqli = new mysqli("localhost", "root", "","socialnetwork");
             ?>
 
             <aside>
@@ -110,7 +110,7 @@
                         </div>                                            
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
-                            <a href=""><?php echo $post['taglist']?></a>,
+                            <a href=""><?php echo $post['taglist']?></a>
                         </footer>
                     </article>
                 <?php } ?>
