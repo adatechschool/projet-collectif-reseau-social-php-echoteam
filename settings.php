@@ -15,8 +15,7 @@ echo $head;
         <main>
 
             <?php
-            $laQuestionEnSql = "
-                SELECT users.*,
+            $laQuestionEnSql = "SELECT users.*,
                 count(DISTINCT posts.id) as totalpost,
                 count(DISTINCT given.post_id) as totalgiven,
                 count(DISTINCT recieved.user_id) as totalrecieved

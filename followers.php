@@ -19,8 +19,7 @@
             <main class='contacts'>
 
                 <?php
-                $laQuestionEnSql = "
-                    SELECT users.*
+                $laQuestionEnSql = "SELECT users.*
                     FROM followers
                     LEFT JOIN users ON users.id=followers.following_user_id
                     WHERE followers.followed_user_id='$userId'
