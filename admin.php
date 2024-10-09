@@ -34,7 +34,7 @@ echo $head;
                         <h3><?php echo $tag['label'] ?></h3>
                         <p><?php echo $tag['id'] ?></p>
                         <nav>
-                            <a href="tags.php?tag_id=<?php echo $tag['id']; ?>">Messages</a>
+                            <a href="tags.php?tag_id=<?php echo $tag['id'] ?>">Messages</a>
                         </nav>
                     </article>
                 <?php } ?>
@@ -57,14 +57,14 @@ echo $head;
 
                     ?>
                     <article>
-                        <h3><?php echo $tag['alias'] ?></h3>
+                   <h3><a href="wall.php?user_id=<?php echo $tag['id'] ?>"><?php echo $tag['alias'] ?></a></h3>
                         <p><?php echo $tag['id'] ?></p>
                         <nav>
-                          <a href="wall.php?user_id=<?php echo $tag['id']; ?>"  >Mur</a>;
-                          <a href="feed.php?user_id=<?php echo $tag['id']; ?>"  >Flux</a>;
-                          <a href="settings.php?user_id=<?php echo $tag['id']; ?>" >Paramètres</a>;
-                          <a href="followers.php?user_id=<?php echo $tag['id']; ?>"  >Suiveurs</a>;
-                          <a href="subscriptions.php?user_id=<?php echo $tag['id']; ?>" > Abonnements</a>;
+                          <a href="wall.php?user_id=<?php echo $tag['id']  ?>"  > Mur</a>
+                          <a href="feed.php?user_id=<?php echo $tag['id']  ?>"  > Flux</a>
+                          <a href="settings.php?user_id=<?php echo $tag['id']  ?>" > Paramètres</a>
+                          <a href="followers.php?user_id=<?php echo $tag['id']  ?>"  > Suiveurs</a>
+                          <a href="subscriptions.php?user_id=<?php echo $tag['id']  ?>" > Abonnements</a>
                         </nav>
                     </article>
                 <?php 
