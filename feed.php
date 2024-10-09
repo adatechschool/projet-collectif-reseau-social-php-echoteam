@@ -10,6 +10,7 @@ echo $head;
             <aside>
 
                 <?php
+               // phpinfo();
                 $laQuestionEnSql = "SELECT * FROM `users` WHERE id= '$userId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();

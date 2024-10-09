@@ -18,7 +18,7 @@ echo $head;
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les messages de l'utilisatrice :
-                         <?php echo $user['alias'] ?>
+                         <?php echo $userId['id'] ?>
                     </p>
                 </section>
             </aside>
