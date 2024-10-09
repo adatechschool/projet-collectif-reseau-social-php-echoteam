@@ -38,8 +38,6 @@ echo $head;
                         }
 
                         if (count($erreurs) === 0) { //(si aucune erreur n'est inscrite dans le tableau de message d'erreur, le code s'execute)
-                            //Ouvrir une connexion avec la base de donnée.
-                            $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
                             //Petite sécurité pour éviter les injections sql (https://www.w3schools.com/sql/sql_injection.asp):
                             $new_email = $mysqli->real_escape_string($new_email);
                             $new_alias = $mysqli->real_escape_string($new_alias);
