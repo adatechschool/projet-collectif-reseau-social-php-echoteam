@@ -51,7 +51,7 @@ echo $head;
                             //Petite sécurité pour éviter les injections sql
                             $authorId = intval($mysqli->real_escape_string($authorId));
                             $postContent = $mysqli->real_escape_string($postContent);
-                            //construction de la requete
+                            //construction de la requête
                             $lInstructionSql = "INSERT INTO posts "
                                 . "(id, user_id, content, created, parent_id) "
                                 . "VALUES (NULL, "
