@@ -24,8 +24,7 @@ echo $head;
                     exit();
                 }
 
-                $laQuestionEnSql = "
-                    SELECT posts.content,
+                $laQuestionEnSql = "SELECT posts.content,
                     posts.created,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
