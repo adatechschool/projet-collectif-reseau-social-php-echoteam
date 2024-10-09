@@ -1,11 +1,13 @@
 <?php
 
 $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
+
 if (isset($_GET['user_id'])) {
-    $userId =intval($_GET['user_id']);
-} else {
+    $userId = intval($_GET['user_id']);
+} elseif (isset($_GET['tag_id'])) {
     $tagId = intval($_GET['tag_id']);
 }
+
 
 $head = '
     <head>
