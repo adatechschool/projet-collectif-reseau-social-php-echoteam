@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['connected_id'])) {
+    // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
+    header("Location: login.php");
+    exit();
+}
+$userId = $_SESSION['connected_id'];
+?>
 <!doctype html>
 <html lang="fr">
 <?php
@@ -6,6 +15,7 @@ echo $head;
 ?>
 
         <div id="wrapper">
+
             <aside>
 
                 <?php
@@ -23,8 +33,67 @@ echo $head;
                 </section>
             </aside>
             <main>
+                <article>
+                    <h2>Poster un message</h2>
+                    <?php
+                    $laQuestionEnSql = "SELECT * FROM users";
+                    $lesInformations = $mysqli->query($laQuestionEnSql);
+                    while ($user = $lesInformations->fetch_assoc())
+                    {
+                        $listAuteurs[$user['id']] = $user['alias'];
+                    }
 
-                <?php
+                    $enCoursDeTraitement = isset($_POST['auteur']);
+                    if ($enCoursDeTraitement) {
+                        // on ne fait ce qui suit que si un formulaire a été soumis.
+                        // On récupère ce qu'il y a dans le formulaire
+                        $authorId = $_SESSION['connected_id'];
+                        $postContent = $_POST['message'];
+
+                        // Verification des champs et création des messages d'erreur éventuels
+                        $erreurs = [];
+                        if (empty($postContent)) {
+                            $erreurs[] = "Le message est requis.";
+                        }
+
+                        if (count($erreurs) === 0) { //(si aucune erreur n'est inscrite dans le tableau de message d'erreur, le code s'execute)
+                            //Petite sécurité pour éviter les injections sql
+                            $authorId = intval($mysqli->real_escape_string($authorId));
+                            $postContent = $mysqli->real_escape_string($postContent);
+                            //construction de la requête
+                            $lInstructionSql = "INSERT INTO posts "
+                                    . "(id, user_id, content, created, parent_id) "
+                                    . "VALUES (NULL, "
+                                    . $authorId . ", "
+                                    . "'" . $postContent . "', "
+                                    . "NOW(), "
+                                    . "NULL);";
+                            //Execution
+                            $ok = $mysqli->query($lInstructionSql);
+                            if (!$ok) {
+                                echo "Impossible d'ajouter le message: " . $mysqli->error;
+                            } else {
+                                echo "Message posté avec succès.";                            }
+                        } else {
+                            // sinon, affiche les erreurs (manque un email ou pseudo ou mot de passe)
+                            foreach ($erreurs as $erreur) {
+                                echo "<p style='color: red;'>$erreur</p>";
+                            }
+                        }
+                    }
+
+                    ?>
+                    <form action="wall.php" method="post">
+                        <input type="hidden" name="auteur" value="<?php echo $_SESSION['connected_id']; ?>">
+                        <dl>
+                            <dt><label for="message">Message</label></dt>
+                            <dd><textarea name="message" aria-describedby="message-error"></textarea></dd>
+                        </dl>
+                        <input type="submit">
+                    </form>
+
+
+                    <?php
                 $laQuestionEnSql = 
                 "SELECT posts.content, 
                     posts.created,    
