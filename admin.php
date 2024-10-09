@@ -2,7 +2,6 @@
 <html lang="fr">
 <?php
 include 'var_globale.php';
-
 echo $head;
 ?>
 
