@@ -1,4 +1,7 @@
-<!doctype html>
+<?php
+session_start();
+?>
+!doctype html>
 <html lang="fr">
 <?php
 include 'var_globale.php';
