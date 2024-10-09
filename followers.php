@@ -8,12 +8,17 @@
 
     <div id="wrapper">
             <aside>
+            <?php
+                $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
+                $lesInformations = $mysqli->query($laQuestionEnSql);
+                $user = $lesInformations->fetch_assoc();
+                ?>
                 <img src = "user.jpg" alt = "Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
                         suivent les messages de l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?></p>
+                     <?php echo $user['alias'] ?></p>
                 </section>
             </aside>
             <main class='contacts'>
