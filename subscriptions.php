@@ -21,7 +21,7 @@ echo $head;
                 <?php
                 $laQuestionEnSql = " SELECT users.* 
                     FROM followers 
-                    LEFT JOIN users ON users.id=followers.followed_user_id 
+                    JOIN users ON users.id=followers.followed_user_id
                     WHERE followers.following_user_id='$userId'
                     GROUP BY users.id
                     ";
@@ -31,7 +31,7 @@ echo $head;
                     ?>
                 <article>
                     <img src="user.jpg" alt="blason"/>
-                    <h3><?php echo $following['alias']?></h3>
+                    <h3><a href="wall.php?user_id=<?php echo $following['id']?>"><?php echo $following['alias']?></a></h3>
                     <p><?php echo $following['id']?></p>                    
                 </article> <?php
             }

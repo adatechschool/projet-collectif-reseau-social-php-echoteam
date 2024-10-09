@@ -25,11 +25,13 @@ echo $head;
             <main>
                 <?php
 
-                $laQuestionEnSql = " SELECT posts.content,
+                $laQuestionEnSql = "SELECT 
+                    posts.content,
                     posts.created,
-                    users.alias as author_name,  
-                    count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    users.id as author_id,
+                    users.alias as author_name,
+                    count(likes.id) as like_number,
+                    GROUP_CONCAT(DISTINCT tags.label) AS taglist
                     FROM posts_tags as filter 
                     JOIN posts ON posts.id=filter.post_id
                     JOIN users ON users.id=posts.user_id
@@ -54,7 +56,10 @@ echo $head;
                         <h3>
                             <time ><?php echo $post['created'] ?></time>
                         </h3>
-                        <address><?php echo $post['author_name']?></address>
+                        <address>
+                            <a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?>
+                        </a>
+                    </address>
                         <div>
                             <p><?php echo $post['content']?></p>
                         </div>                                            
