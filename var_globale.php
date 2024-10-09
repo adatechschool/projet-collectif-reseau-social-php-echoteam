@@ -33,6 +33,6 @@ $head = '
                     <li><a href="subscriptions.php?user_id=5">Mes abonnements</a></li>
                 </ul>
             </nav>
-        </header>';
+        </header>'
 
 ?>
