@@ -57,5 +57,13 @@ $head = '
         </nav>
     </header>
 ';
+//gestion des likes :
+
+
+//$Leslikes = $mysqli->query($insertLikeQuery);
+//if ( ! $Leslikes)
+//{
+//    echo("Échec de la requete : " . $mysqli->error);
+//}
 
 ?>

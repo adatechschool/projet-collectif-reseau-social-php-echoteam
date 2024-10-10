@@ -13,7 +13,7 @@ echo $head;
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
                         suivent les messages de l'utilisatrice :
-                        <?php echo $_SESSION['connected_id']; ?>
+                        <?php echo $userId; ?>
                 </section>
             </aside>
             <main class='contacts'>

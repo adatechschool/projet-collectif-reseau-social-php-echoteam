@@ -21,7 +21,7 @@ echo $head;
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les messages de l'utilisatrice :
 
-                        <?php echo $_SESSION['connected_id']; ?>
+                        <?php echo $userId; ?>
 
                     </p>
                 </section>

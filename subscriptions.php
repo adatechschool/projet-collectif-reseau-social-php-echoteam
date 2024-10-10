@@ -12,7 +12,7 @@ echo $head;
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes dont
                         l'utilisatrice :
-                        <?php echo $_SESSION['connected_id']; ?>
+                        <?php echo $userId; ?>
                         suit les messages
                     </p>
                 </section>
