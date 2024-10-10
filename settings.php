@@ -24,7 +24,7 @@ echo $head;
                 LEFT JOIN posts ON posts.user_id=users.id
                 LEFT JOIN likes as given ON given.user_id=users.id
                 LEFT JOIN likes as recieved ON recieved.post_id=posts.id
-                WHERE users.id BETWEEN 1 AND 7
+                WHERE users.id='$userId'
                 GROUP BY users.id
             ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
