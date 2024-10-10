@@ -1,14 +1,31 @@
 <?php
 session_start();
 
-$mysqli = new mysqli("localhost", "root", "", "socialnetwork");
-
 if (isset($_GET['user_id'])) {
-    $userId = intval($_GET['user_id']);
-} elseif (isset($_GET['tag_id'])) {
-    $tagId = intval($_GET['tag_id']);
+    $userId = intval($_GET['user_id']);}
+elseif (isset($_SESSION['connected_id'])) {
+    $userId = $_SESSION['connected_id'];
 }
 
+$mysqli = new mysqli("localhost", "root", "", "socialnetwork");
+
+
+
+if (isset($_GET['tag_id'])) {
+    $tagId = intval($_GET['tag_id']);
+}
+    else {
+        $tagId = 0;
+    }
+
+
+function maFonction() {
+    if (!isset($_SESSION['connected_id'])) {
+        // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
+        header("Location: login.php");
+        exit();
+    }
+}
 // Stocke l'en-tête dans une variable
 $head = '
 <!DOCTYPE html>
@@ -24,16 +41,16 @@ $head = '
         <a href="admin.php"><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
         <nav id="menu">
             <a href="news.php">Actualités</a>
-            <a href="wall.php?user_id=' . $_SESSION['connected_id'] . '">Mur</a>
-            <a href="feed.php?user_id=' . $_SESSION['connected_id'] . '">Flux</a>
-            <a href="tags.php?tag_id=' . $_SESSION['connected_id'] . '">Mots-clés</a>
+            <a href="wall.php">Mur</a>
+            <a href="feed.php">Flux</a>
+            <a href="tags.php">Mots-clés</a>
         </nav>
         <nav id="user">
             <a href="#">Profil</a>
             <ul>
-                <li><a href="settings.php?user_id=' . $_SESSION['connected_id'] . '">Paramètres</a></li>
-                <li><a href="followers.php?user_id=' . $_SESSION['connected_id'] . '">Mes suiveurs</a></li>
-                <li><a href="subscriptions.php?user_id=' . $_SESSION['connected_id'] . '">Mes abonnements</a></li>
+                <li><a href="settings.php">Paramètres</a></li>
+                <li><a href="followers.php">Mes suiveurs</a></li>
+                <li><a href="subscriptions.php">Mes abonnements</a></li>
                 <li><a href="login.php">Connexion</a></li>
             </ul>
         </nav>

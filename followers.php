@@ -1,27 +1,19 @@
 <?php
-session_start();
-?>
-<!doctype html>
-<html lang="fr">
-    <?php
-    include 'var_globale.php';
 
-    echo $head;
+include 'var_globale.php';
+maFonction();
+
+echo $head;
 ?>
 
     <div id="wrapper">
             <aside>
-            <?php
-                $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
-                $lesInformations = $mysqli->query($laQuestionEnSql);
-                $user = $lesInformations->fetch_assoc();
-                ?>
                 <img src = "user.jpg" alt = "Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
-                        suivent les messages de l'utilisatrice
-                     <?php echo $user['alias'] ?></p>
+                        suivent les messages de l'utilisatrice :
+                        <?php echo $_SESSION['connected_id']; ?>
                 </section>
             </aside>
             <main class='contacts'>

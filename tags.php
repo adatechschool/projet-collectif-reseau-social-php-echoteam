@@ -1,16 +1,19 @@
 <?php
-session_start();
-?>
-<!doctype html>
-<html lang="fr">
-<?php
+
 include 'var_globale.php';
+maFonction();
+
 echo $head;
 ?>
         <div id="wrapper">
             <aside>
 
                 <?php
+
+                if ($tagId == 0){
+                    echo "c'est la merde";
+                    die();
+                }
                 $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $tag = $lesInformations->fetch_assoc();
