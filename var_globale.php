@@ -20,6 +20,7 @@ if (isset($_GET['tag_id'])) {
 
 
 function maFonction() {
+   
     if (!isset($_SESSION['connected_id'])) {
         // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
         header("Location: login.php");

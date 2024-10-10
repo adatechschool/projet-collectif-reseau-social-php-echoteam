@@ -60,6 +60,7 @@ echo $head;
                    <h3><a href="wall.php?user_id=<?php echo $tag['id'] ?>"><?php echo $tag['alias'] ?></a></h3>
                         <p><?php echo $tag['id'] ?></p>
                         <nav>
+                          
                           <a href="wall.php?user_id=<?php echo $tag['id']  ?>"  > Mur</a>
                           <a href="feed.php?user_id=<?php echo $tag['id']  ?>"  > Flux</a>
                           <a href="settings.php?user_id=<?php echo $tag['id']  ?>" > Paramètres</a>
