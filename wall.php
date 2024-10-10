@@ -28,11 +28,9 @@ echo $head;
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les messages de l'utilisatrice :
-<<<<<<< HEAD
-                         <?php echo $user['alias'] ?>
-=======
+
                         <?php echo $_SESSION['connected_id']; ?>
->>>>>>> e14ed40cc2a3e8cdd2cf5c15332ab567611da7c6
+
                     </p>
                 </section>
             </aside>
