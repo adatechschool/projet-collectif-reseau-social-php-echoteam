@@ -4,6 +4,7 @@ body{
     font-family: Arial;
 }
 
+
 a{text-decoration: none; color:black;}
 a:hover{text-decoration: underline;}
 
@@ -122,6 +123,7 @@ body>header #user:hover ul{
 #wrapper main article footer small{
     float:left;
 }
+
 
 #wrapper.admin{flex-direction: row-reverse}
 #wrapper.admin aside{flex:1;margin-left:1em;border-radius:0;padding:0;}

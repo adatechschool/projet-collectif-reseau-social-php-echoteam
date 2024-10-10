@@ -35,7 +35,7 @@ echo $head;
             while ($user = $lesInformations->fetch_assoc()) {
             ?>
                 <article class='parameters'>
-                    <h3>Mes paramètres pour l'utilisateur <?php echo $user['alias']; ?></h3>
+                    <h3>Mes paramètres pour l'utilisateur <?php echo $userId; ?></h3>
                     <dl>
                         <dt>Pseudo</dt>
                         <dd><?php echo $user['alias']; ?></dd>
