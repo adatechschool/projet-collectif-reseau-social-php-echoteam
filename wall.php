@@ -1,16 +1,8 @@
 <?php
-session_start();
-if (!isset($_SESSION['connected_id'])) {
-    // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
-    header("Location: login.php");
-    exit();
-}
-$userId = $_SESSION['connected_id'];
-?>
-<!doctype html>
-<html lang="fr">
-<?php
+
 include 'var_globale.php';
+maFonction();
+
 echo $head;
 ?>
 

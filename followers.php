@@ -1,12 +1,9 @@
 <?php
-session_start();
-?>
-<!doctype html>
-<html lang="fr">
-    <?php
-    include 'var_globale.php';
 
-    echo $head;
+include 'var_globale.php';
+maFonction();
+
+echo $head;
 ?>
 
     <div id="wrapper">
@@ -15,8 +12,8 @@ session_start();
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
-                        suivent les messages de l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?></p>
+                        suivent les messages de l'utilisatrice :
+                        <?php echo $_SESSION['connected_id']; ?>
                 </section>
             </aside>
             <main class='contacts'>
