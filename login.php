@@ -8,8 +8,8 @@ echo $head;
         <div id="wrapper" >
 
             <aside>
-                <h2>Présentation</h2>
-                <p>Bienvenu sur notre réseau social.</p>
+                <h2>⚠️ </h2>
+                <p>Connexion obligatoire pour accéder au site!</p>
             </aside>
             <main>
                 <article>
