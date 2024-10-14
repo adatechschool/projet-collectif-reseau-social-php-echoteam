@@ -19,7 +19,7 @@ echo $head;
         <section>
             <h3>Présentation</h3>
             <p>Sur cette page vous trouverez tous les messages de l'utilisatrice :
-                <?php echo $userId ?>
+                <?php echo $user['alias'] ?>
             </p>
         </section>
 
@@ -106,7 +106,7 @@ echo $head;
 
         </article>
     </aside>
-    <main>
+    <main id="main-content">
         <article>
             <h2>Poster un message</h2>
             <?php
@@ -163,47 +163,85 @@ echo $head;
 
         </article>
         <?php
-        $laQuestionEnSql =
-        "SELECT posts.content, 
-                posts.created,    
-                users.alias as author_name,
-                users.id as author_id,
-                COUNT(likes.id) as like_number,
-                GROUP_CONCAT(DISTINCT tags.label) AS taglist 
-                FROM posts
-                JOIN users ON users.id = posts.user_id
-                LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
-                LEFT JOIN tags ON posts_tags.tag_id = tags.id 
-                LEFT JOIN likes ON likes.post_id = posts.id 
-                WHERE posts.user_id = '$userId' 
-                GROUP BY posts.id
-                ORDER BY posts.created DESC";
+
+        // Requête SQL pour récupérer les posts et le nombre total de likes
+        $laQuestionEnSql = "SELECT posts.id,
+    posts.content,
+    posts.created,
+    users.alias AS author_name,
+    users.id AS author_id,
+    COUNT(DISTINCT likes.id) AS like_number,
+    GROUP_CONCAT(DISTINCT likes.user_id) AS liked_by,
+    GROUP_CONCAT(DISTINCT tags.label) AS taglist
+FROM posts
+JOIN users ON users.id = posts.user_id
+LEFT JOIN posts_tags ON posts.id = posts_tags.post_id
+LEFT JOIN tags ON posts_tags.tag_id = tags.id
+LEFT JOIN likes ON likes.post_id = posts.id
+WHERE posts.user_id = '$userId'  -- Filtrer uniquement les posts de l'utilisateur
+GROUP BY posts.id
+ORDER BY posts.created DESC;";
 
         $lesInformations = $mysqli->query($laQuestionEnSql);
         if (!$lesInformations) {
-            echo("Échec de la requete : " . $mysqli->error);
+            echo("Échec de la requête : " . $mysqli->error);
         }
 
+        // Gestion des likes
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['post_id'])) {
+                $postId = $_POST['post_id']; // ID du post
+
+                // Vérifier si l'utilisateur a déjà liké ce post
+                $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '$postId'";
+                $likeResult = $mysqli->query($checkLikeQuery);
+
+                if ($likeResult->num_rows > 0) {
+                    // L'utilisateur a déjà liké, donc on retire le like
+                    $removeLikeQuery = "DELETE FROM likes WHERE user_id = '$userId' AND post_id = '$postId'";
+                    $mysqli->query($removeLikeQuery); // Exécution de la requête
+                } else {
+                    // L'utilisateur n'a pas liké, donc on ajoute le like
+                    $insertLikeQuery = "INSERT INTO likes (user_id, post_id) VALUES ('$userId', '$postId')";
+                    $mysqli->query($insertLikeQuery); // Exécution de la requête
+                }
+
+                // Redirection pour éviter la répétition du POST lors du rechargement de la page
+                header("Location: " . $_SERVER['REQUEST_URI'] . "#" . $postId);
+                exit();
+            }
+        }
+
+        // Boucle d'affichage des posts
         while ($post = $lesInformations->fetch_assoc()) {
+            // Vérifier si l'utilisateur a déjà liké ce post
+            $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '" . $post['id'] . "'";
+            $likeResult = $mysqli->query($checkLikeQuery);
+            $userHasLiked = ($likeResult->num_rows > 0);
             ?>
-            <article>
-                <h3>
-                    <time><?php echo $post['created'] ?></time>
-                </h3>
-                <div>
-                    <address>
-                        <a href="wall.php?user_id=<?php echo $post['author_id'] ?>" title="<?php echo $post['author_name'] ?>">
-                            <?php echo $post['author_name'] ?>
-                        </a>
-                    </address>
-                    <p><?php echo $post['content'] ?></p>
-                </div>
+            <article id="<?php echo $post['id']; ?>">
+                <h3><time><?php echo $post['created'] ?></time></h3>
+                <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
+                <div><p><?php echo $post['content'] ?></p></div>
                 <footer>
-                    <small>♥ <?php echo $post['like_number'] ?></small>
-                    <a href=""><?php echo $post['taglist'] ?></a>
+                    <small>
+                        <form method="post" class="like-form">
+                            <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+                            <button type="submit" class="like-button">
+                                <?php echo $userHasLiked ? '♥' : '♡'; ?>
+                            </button>
+                        </form>
+                    </small>
+                    <!-- Affichage du nombre total de likes pour le post -->
+                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
+
                 </footer>
             </article>
         <?php } ?>
 
     </main>
-</
+</div>
+
+</body>
+</html>

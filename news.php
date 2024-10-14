@@ -5,76 +5,96 @@ redirect_login();
 
 echo $head;
 ?>
-        <div id="wrapper">
-            <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
-                <section>
-                    <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez les derniers messages de
-                        tous les utilisatrices du site.</p>
-                </section>
-            </aside>
-            <main>
 
-                <?php
-                if ($mysqli->connect_errno)
-                {
-                    echo "<article>";
-                    echo("Échec de la connexion : " . $mysqli->connect_error);
-                    echo "</article>";
-                    exit();
+<div id="wrapper">
+    <aside>
+        <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+        <section>
+            <h3>Présentation</h3>
+            <p>Sur cette page vous trouverez les derniers messages de
+                tous les utilisatrices du site.</p>
+        </section>
+    </aside>
+    <main id="main-content">
+
+        <?php
+
+        $laQuestionEnSql = "SELECT posts.id,
+posts.content,
+posts.created,
+users.alias AS author_name,
+users.id AS author_id,
+COUNT(DISTINCT likes.id) AS like_number,
+GROUP_CONCAT(DISTINCT likes.user_id) AS liked_by,
+GROUP_CONCAT(DISTINCT tags.label) AS taglist
+FROM posts
+JOIN users ON users.id = posts.user_id
+LEFT JOIN posts_tags ON posts.id = posts_tags.post_id
+LEFT JOIN tags ON posts_tags.tag_id = tags.id
+LEFT JOIN likes ON likes.post_id = posts.id
+GROUP BY posts.id
+ORDER BY posts.created DESC;";
+
+        $lesInformations = $mysqli->query($laQuestionEnSql);
+        if (!$lesInformations) {
+            echo("Échec de la requête : " . $mysqli->error);
+        }
+
+        // Gestion des likes
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['post_id'])) {
+                $postId = $_POST['post_id']; // ID du post
+
+                // Vérifier si l'utilisateur a déjà liké ce post
+                $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '$postId'";
+                $likeResult = $mysqli->query($checkLikeQuery);
+
+                if ($likeResult->num_rows > 0) {
+                    // L'utilisateur a déjà liké, donc on retire le like
+                    $removeLikeQuery = "DELETE FROM likes WHERE user_id = '$userId' AND post_id = '$postId'";
+                    $mysqli->query($removeLikeQuery); // Exécution de la requête
+                } else {
+                    // L'utilisateur n'a pas liké, donc on ajoute le like
+                    $insertLikeQuery = "INSERT INTO likes (user_id, post_id) VALUES ('$userId', '$postId')";
+                    $mysqli->query($insertLikeQuery); // Exécution de la requête
                 }
 
-                $laQuestionEnSql = "SELECT posts.content,
-                    posts.created,
-                    users.alias as author_name,  
-                    users.id as author_id,
-                    count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
-                    FROM posts
-                    JOIN users ON  users.id=posts.user_id
-                    LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
-                    LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
-                    LEFT JOIN likes      ON likes.post_id  = posts.id 
-                    GROUP BY posts.id
-                    ORDER BY posts.created DESC  
-                    LIMIT 5
-                    ";
+                // Redirection pour éviter la répétition du POST lors du rechargement de la page
+                header("Location: " . $_SERVER['REQUEST_URI'] . "#" . $postId);
+                exit();
+            }
+        }
 
-                $lesInformations = $mysqli->query($laQuestionEnSql);
+        // Boucle d'affichage des posts
+        while ($post = $lesInformations->fetch_assoc()) {
+            // Vérifier si l'utilisateur a déjà liké ce post
+            $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '" . $post['id'] . "'";
+            $likeResult = $mysqli->query($checkLikeQuery);
+            $userHasLiked = ($likeResult->num_rows > 0);
+            ?>
+            <article id="<?php echo $post['id']; ?>">
+                <h3><time><?php echo $post['created'] ?></time></h3>
+                <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
+                <div><p><?php echo $post['content'] ?></p></div>
+                <footer>
+                    <small>
+                        <form method="post" class="like-form">
+                            <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+                            <button type="submit" class="like-button">
+                                <?php echo $userHasLiked ? '♥' : '♡'; ?>
+                            </button>
+                        </form>
+                    </small>
+                    <!-- Affichage du nombre total de likes pour le post -->
+                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
 
-                if ( ! $lesInformations)
-                {
-                    echo "<article>";
-                    echo("Échec de la requete : " . $mysqli->error);
-                    exit();
-                }
+                </footer>
+            </article>
+        <?php } ?>
 
-                while ($post = $lesInformations->fetch_assoc())
-                {
-                    ?>
-                    <article>
-                        <h3>
-                            <time><?php echo $post['created'] ?></time>
-                        </h3>
-                        <address>
-                           <a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?>
-                        </a> 
-                        </address>
-                        
-                        <div>
-                            <p> <?php echo $post['content']?></p>
-                        </div>
-                        <footer>
-                            <small>♥ <?php echo $post['like_number']?></small>
-                            <a href=""><?php echo $post['taglist']?></a>
-                        </footer>
-                    </article>
-                    <?php
-                }
-                ?>
+    </main>
+</div>
 
-            </main>
-        </div>
-    </body>
+</body>
 </html>

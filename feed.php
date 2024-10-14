@@ -1,6 +1,6 @@
 <?php
+
 include 'var_globale.php';
-session_start(); // Démarrer la session ici si ce n'est pas déjà fait
 redirect_login();
 
 echo $head;
@@ -24,28 +24,27 @@ echo $head;
             </p>
         </section>
     </aside>
-    <main>
+    <main id="main-content">
 
         <?php
         // Requête SQL pour récupérer les posts et le nombre total de likes
         $laQuestionEnSql = "SELECT posts.id,
-        posts.content,
-        posts.created,
-        users.alias AS author_name,
-        users.id AS author_id,
-        COUNT(DISTINCT likes.id) AS like_number,  -- Utilisation de DISTINCT pour éviter les doublons
-        GROUP_CONCAT(DISTINCT likes.user_id) AS liked_by, -- Qui a liké
-        GROUP_CONCAT(DISTINCT tags.label) AS taglist
-    FROM followers
-    JOIN users ON users.id = followers.followed_user_id
-    JOIN posts ON posts.user_id = users.id
-    LEFT JOIN posts_tags ON posts.id = posts_tags.post_id
-    LEFT JOIN tags ON posts_tags.tag_id = tags.id
-    LEFT JOIN likes ON likes.post_id = posts.id
-    WHERE followers.following_user_id = '$userId'
-    GROUP BY posts.id
-    ORDER BY posts.created DESC;";
-
+            posts.content,
+            posts.created,
+            users.alias AS author_name,
+            users.id AS author_id,
+            COUNT(DISTINCT likes.id) AS like_number,
+            GROUP_CONCAT(DISTINCT likes.user_id) AS liked_by,
+            GROUP_CONCAT(DISTINCT tags.label) AS taglist
+        FROM followers
+        JOIN users ON users.id = followers.followed_user_id
+        JOIN posts ON posts.user_id = users.id
+        LEFT JOIN posts_tags ON posts.id = posts_tags.post_id
+        LEFT JOIN tags ON posts_tags.tag_id = tags.id
+        LEFT JOIN likes ON likes.post_id = posts.id
+        WHERE followers.following_user_id = '$userId'
+        GROUP BY posts.id
+        ORDER BY posts.created DESC;";
 
         $lesInformations = $mysqli->query($laQuestionEnSql);
         if (!$lesInformations) {
@@ -55,7 +54,6 @@ echo $head;
         // Gestion des likes
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['post_id'])) {
-                $userId = $_SESSION['connected_id']; // ID de l'utilisateur connecté
                 $postId = $_POST['post_id']; // ID du post
 
                 // Vérifier si l'utilisateur a déjà liké ce post
@@ -73,7 +71,7 @@ echo $head;
                 }
 
                 // Redirection pour éviter la répétition du POST lors du rechargement de la page
-                header("Location: " . $_SERVER['REQUEST_URI']);
+                header("Location: " . $_SERVER['REQUEST_URI'] . "#" . $postId);
                 exit();
             }
         }
@@ -81,32 +79,32 @@ echo $head;
         // Boucle d'affichage des posts
         while ($post = $lesInformations->fetch_assoc()) {
             // Vérifier si l'utilisateur a déjà liké ce post
-            $userId = $_SESSION['connected_id']; // Assurer que l'utilisateur est bien défini ici
             $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '" . $post['id'] . "'";
             $likeResult = $mysqli->query($checkLikeQuery);
             $userHasLiked = ($likeResult->num_rows > 0);
             ?>
-            <article>
+            <article id="<?php echo $post['id']; ?>">
                 <h3><time><?php echo $post['created'] ?></time></h3>
                 <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                 <div><p><?php echo $post['content'] ?></p></div>
                 <footer>
                     <small>
-                        <form method="post">
+                        <form method="post" class="like-form">
                             <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
-                            <button type="submit">
+                            <button type="submit" class="like-button">
                                 <?php echo $userHasLiked ? '♥' : '♡'; ?>
                             </button>
                         </form>
                     </small>
                     <!-- Affichage du nombre total de likes pour le post -->
                     <small><?php echo $post['like_number']; ?> likes</small>
-                    <a href=""><?php echo $post['taglist']; ?></a>
+                    <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
                 </footer>
             </article>
         <?php } ?>
 
     </main>
 </div>
+
 </body>
 </html>
