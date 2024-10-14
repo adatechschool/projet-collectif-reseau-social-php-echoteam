@@ -7,10 +7,7 @@ if (isset($_GET['user_id'])) {
     $userId = intval($_POST['user_id']);
 } elseif (isset($_SESSION['connected_id'])) {
     $userId = $_SESSION['connected_id'];
-} else {
-    // Gestion d'erreur au cas où aucun user_id ne serait défini
-    die('Utilisateur non connecté.');
-}
+} 
 
 
 $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
@@ -44,7 +41,7 @@ $head = '
 </head>
 <body>
     <header>
-        <a href="admin.php"><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
+        <a><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
         <nav id="menu">
             <a href="news.php">Actualités</a>
             <a href="wall.php">Mur</a>

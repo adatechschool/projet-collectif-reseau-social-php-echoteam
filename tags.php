@@ -11,7 +11,7 @@ echo $head;
                 <?php
 
                 if ($tagId == 0){
-                    echo "c'est la merde";
+                    echo "Pas de tags";
                     die();
                 }
                 $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
