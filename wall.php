@@ -26,6 +26,8 @@ echo $head;
             <?php
             $viewedUserId = isset($_GET['user_id']) ? intval($_GET['user_id']) : $userId;
 
+//Gestion de l'abonnement à un utilisateur :
+
             if ($viewedUserId !== $_SESSION['connected_id']) {
                 $laQuestionEnSql = "SELECT * FROM followers WHERE followed_user_id = ? AND following_user_id = ?";
                 $stmtVerif = $mysqli->prepare($laQuestionEnSql);
@@ -79,6 +81,8 @@ echo $head;
         </article>
     </aside>
     <main id="main-content">
+
+<!--        Poster un message : -->
 
         <?php
         if ($userId == $_SESSION['connected_id']) {
@@ -167,30 +171,31 @@ echo $head;
 
         <?php
 
+// Gestion des likes
         // Requête SQL pour récupérer les posts et le nombre total de likes
         $laQuestionEnSql = "SELECT posts.id,
-    posts.content,
-    posts.created,
-    users.alias AS author_name,
-    users.id AS author_id,
-    COUNT(DISTINCT likes.id) AS like_number,
-    GROUP_CONCAT(DISTINCT likes.user_id) AS liked_by,
-    GROUP_CONCAT(DISTINCT tags.label) AS taglist
-FROM posts
-JOIN users ON users.id = posts.user_id
-LEFT JOIN posts_tags ON posts.id = posts_tags.post_id
-LEFT JOIN tags ON posts_tags.tag_id = tags.id
-LEFT JOIN likes ON likes.post_id = posts.id
-WHERE posts.user_id = '$userId'  -- Filtrer uniquement les posts de l'utilisateur
-GROUP BY posts.id
-ORDER BY posts.created DESC;";
+        posts.content,
+        posts.created,
+        users.alias AS author_name,
+        users.id AS author_id,
+        COUNT(DISTINCT likes.id) AS like_number,
+        GROUP_CONCAT(DISTINCT likes.user_id) AS liked_by,
+        GROUP_CONCAT(DISTINCT tags.label) AS taglist
+        FROM posts
+        JOIN users ON users.id = posts.user_id
+        LEFT JOIN posts_tags ON posts.id = posts_tags.post_id
+        LEFT JOIN tags ON posts_tags.tag_id = tags.id
+        LEFT JOIN likes ON likes.post_id = posts.id
+        WHERE posts.user_id = '$userId'  -- Filtrer uniquement les posts de l'utilisateur
+        GROUP BY posts.id
+        ORDER BY posts.created DESC;";
 
         $lesInformations = $mysqli->query($laQuestionEnSql);
         if (!$lesInformations) {
             echo("Échec de la requête : " . $mysqli->error);
         }
 
-        // Gestion des likes
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['post_id'])) {
                 $postId = $_POST['post_id']; // ID du post
@@ -215,7 +220,7 @@ ORDER BY posts.created DESC;";
             }
         }
 
-        // Boucle d'affichage des posts
+// Boucle d'affichage des posts
         while ($post = $lesInformations->fetch_assoc()) {
             // Vérifier si l'utilisateur a déjà liké ce post
             $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '" . $post['id'] . "'";
