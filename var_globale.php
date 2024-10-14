@@ -5,9 +5,9 @@ if (isset($_GET['user_id'])) {
     $userId = intval($_GET['user_id']);
 } elseif (isset($_POST['user_id'])) {  // Ajout de la vérification pour POST
     $userId = intval($_POST['user_id']);
-} elseif (isset($_SESSION['connected_id'])) {
+} else {
     $userId = $_SESSION['connected_id'];
-} 
+}
 
 
 $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
@@ -35,13 +35,13 @@ $head = '
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>ReSoC - Mur</title> 
+    <title>ReSoC</title> 
     <meta name="author" content="Julien Falconnet">
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
     <header>
-        <a><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
+        <a href="admin.php"><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
         <nav id="menu">
             <a href="news.php">Actualités</a>
             <a href="wall.php">Mur</a>
