@@ -1,7 +1,7 @@
 <?php
 
 include 'var_globale.php';
-maFonction();
+redirect_login();
 
 echo $head;
 ?>

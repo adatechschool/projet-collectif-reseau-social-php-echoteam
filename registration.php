@@ -1,7 +1,6 @@
 <?php
 
 include 'var_globale.php';
-maFonction();
 
 echo $head;
 ?>
