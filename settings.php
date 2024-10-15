@@ -43,9 +43,9 @@ echo $head;
                         <dd><?php echo $user['email']; ?></dd>
                         <dt>Nombre de message</dt>
                         <dd><?php echo $user['totalpost']; ?></dd>
-                        <dt>Nombre de "J'aime" donnés </dt>
+                        <dt>Nombre de "J'aime" donnés &nbsp</dt>
                         <dd><?php echo $user['totalgiven']; ?></dd>
-                        <dt>Nombre de "J'aime" reçus</dt>
+                        <dt>Nombre de "J'aime" reçus &nbsp</dt>
                         <dd><?php echo $user['totalrecieved']; ?></dd>
                     </dl>
                 </article>

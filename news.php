@@ -86,7 +86,7 @@ ORDER BY posts.created DESC;";
                         </form>
                     </small>
                     <!-- Affichage du nombre total de likes pour le post -->
-                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <small>&nbsp<?php echo $post['like_number']; ?> likes</small>
                     <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
 
                 </footer>

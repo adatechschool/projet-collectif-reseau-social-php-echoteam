@@ -8,7 +8,7 @@ echo $head;
         <div id="wrapper" >
 
             <aside>
-                <h2>⚠️ </h2>
+                <h2>  ⚠️ </h2>
                 <p>Connexion obligatoire pour accéder au site!</p>
             </aside>
             <main>

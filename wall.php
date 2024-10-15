@@ -180,8 +180,8 @@ ORDER BY posts.created DESC;";
                             </button>
                         </form>
                     </small>
-                    <!-- Affichage du nombre total de likes pour le post -->
-                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <!-- Affichage du nombre total de likes pour le post  &nbsp; création d'un espace entre le boutons et le total des likes-->
+                    <small> &nbsp;<?php echo $post['like_number'] ; ?> likes</small>
                     <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
                 </footer>
             </article>

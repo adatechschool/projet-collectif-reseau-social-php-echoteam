@@ -41,13 +41,14 @@ $head = '
 </head>
 <body>
     <header>
-        <a href="admin.php"><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
+        
         <nav id="menu">
+        
             <a href="news.php">Actualités</a>
             <a href="wall.php">Mur</a>
             <a href="feed.php">Flux</a>
             <a href="tags.php">Mots-clés</a>
-        </nav>
+            </nav>
         <nav id="user">
             <a href="#">Profil</a>
             <ul>
@@ -57,6 +58,8 @@ $head = '
                 <li><a href="login.php">Connexion</a></li>
             </ul>
         </nav>
+        
+       
     </header>
 ';
 //gestion des likes :
