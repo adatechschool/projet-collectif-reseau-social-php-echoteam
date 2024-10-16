@@ -12,11 +12,11 @@ a{font-size:large ;
 
 
 body>header{
-  
+
   border-radius: 3em;
   background-color: #605678;
   display:flex;
-  width:100%;
+  width:90%;
   margin:0 auto 2em auto;
   padding:0;
 
@@ -25,11 +25,11 @@ body>header img{
   height:5em;
 }
 body>header #menu {
-  
+
   display:flex;
   width:50%;
   align-items: stretch;
-  
+
 }
 body>header #menu a{
   font-weight: bolder;
@@ -42,7 +42,7 @@ body>header #menu a{
 }
 body>header a:hover
 {border-radius: 3em;
-  
+
   background-color: #41B3A2;
 }
 body>header ul{list-style: none;}
@@ -63,7 +63,7 @@ body>header #user>a{
   width:100%;
 }
 body>header #user ul{
- 
+
   border-radius:3em;
   display: none;
   position: absolute;
@@ -88,7 +88,7 @@ body>header #user:hover ul{
 
 #wrapper{
   display:flex;
-  width:100%;
+  width:90%;
   margin:0 auto 2em auto;
 }
 #wrapper aside{
@@ -111,10 +111,10 @@ body>header #user:hover ul{
       color:#D7C3F1;
     }
     #wrapper aside section ul li a{
-     
+
       color: #605678;
        text-decoration: none;
-        
+
       }
     #wrapper aside p{
       font-size: large;
@@ -155,7 +155,7 @@ body>header #user:hover ul{
   padding:0;
   font-weight: normal;
   font-size:1em;
-  
+
 }
 #wrapper main article time{
   font-size: small;
@@ -163,7 +163,7 @@ body>header #user:hover ul{
   float:left;
 }
 #wrapper main article address{
-  
+
   text-align: right;
   margin-bottom: 1em;
 }
@@ -176,7 +176,7 @@ body>header #user:hover ul{
   margin:0;
 }
 #wrapper main article footer{
-  
+
   margin-top: 1em;
   text-align: right;
 }
@@ -226,15 +226,16 @@ pre{
 form textarea{border-color: #0D7C66;
 ;}
 #mot_cle{color: #D7C3F1;
-  
+
   border: 1px solid #0D7C66;
   border-radius: 3em;}
 
 form input {color: #D7C3F1;
   background-color: #605678;
   border: 1px solid #0D7C66;
-  border-radius: 3em;}
+  border-radius: 3em;
+}
 form dl dt{float:left;font-weight: bold;line-height: 1.5em;}
 form dl dd{margin-left:10em;line-height: 1.5em;margin-bottom: 1em}
-form dl dd textarea{width:40em;height: 15em;}
+form dl dd textarea{width:40em;height: 15em; padding: 1em;;}
 
