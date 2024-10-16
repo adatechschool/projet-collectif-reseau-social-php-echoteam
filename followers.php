@@ -30,9 +30,8 @@ echo $head;
                 while ($followers = $lesInformations->fetch_assoc()) {
                     ?>
                 <article>
-                    <img src="user.jpg" alt="blason"/>
+                    <img src="user.png" alt="blason"/>
                     <h3><a href="wall.php?user_id=<?php echo $followers['id']?>"><?php echo $followers['alias']?></a></h3>
-                    <p><?php echo $followers['id']?></p>                    
                 </article> <?php
             }
             ?>

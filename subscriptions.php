@@ -33,7 +33,6 @@ echo $head;
                 <article>
                     <img src="user.png" alt="blason"/>
                     <h3><a href="wall.php?user_id=<?php echo $following['id']?>"><?php echo $following['alias']?></a></h3>
-                    <p><?php echo $following['id']?></p>                    
                 </article> <?php
             }
             ?>

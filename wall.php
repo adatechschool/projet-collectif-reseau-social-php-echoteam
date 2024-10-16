@@ -67,7 +67,13 @@ echo $head;
                 echo "<p>Vous " . ($isFollowing ? "suivez déjà" : "ne suivez pas") . " cet utilisateur.</p>";
                 ?>
                 <section>
-                    <h3><?php echo $isFollowing ? 'Désabonner' : 'S\'abonner'; ?> à <?php echo htmlspecialchars($user['alias'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                    <?php if ($userId == $_SESSION['connected_id']): ?>
+                        <h3>
+                            <?php echo $isFollowing ? 'Se désabonner de' : 'S\'abonner à'; ?>
+                            <?php echo htmlspecialchars($user['alias'], ENT_QUOTES, 'UTF-8'); ?>
+                        </h3>
+                    <?php endif; ?>
+
                     <form action="" method="post">
                         <input type="hidden" name="subscriber_id" value="<?php echo $_SESSION['connected_id']; ?>">
                         <input type="hidden" name="author_id" value="<?php echo $viewedUserId; ?>">
