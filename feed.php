@@ -90,7 +90,7 @@ echo $head;
                     <small>
                         <form method="post" class="like-form">
                             <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
-                            <button type="submit" class="like-button">
+                            <button type="submit" class="like-button" style="background: none; border: none;">
                                 <?php echo $userHasLiked ? '♥' : '♡'; ?>
                             </button>
                         </form>
