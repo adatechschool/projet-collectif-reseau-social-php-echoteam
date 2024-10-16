@@ -7,7 +7,6 @@ echo $head;
 
 <div id="wrapper">
     <aside>
-
         <?php
         $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId'";
         $lesInformations = $mysqli->query($laQuestionEnSql);
@@ -176,8 +175,13 @@ echo $head;
         </article>
 
         <?php
+        // Nouvelles fonctions pour gérer les likes
+
+
 
         // Gestion des likes
+        handleLikes($userId, $mysqli);
+
         // Requête SQL pour récupérer les posts et le nombre total de likes
         $laQuestionEnSql = "SELECT posts.id,
         posts.content,
@@ -201,39 +205,11 @@ echo $head;
             echo("Échec de la requête : " . $mysqli->error);
         }
 
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['post_id'])) {
-                $postId = $_POST['post_id']; // ID du post
-
-                // Vérifier si l'utilisateur a déjà liké ce post
-                $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '$postId'";
-                $likeResult = $mysqli->query($checkLikeQuery);
-
-                if ($likeResult->num_rows > 0) {
-                    // L'utilisateur a déjà liké, donc on retire le like
-                    $removeLikeQuery = "DELETE FROM likes WHERE user_id = '$userId' AND post_id = '$postId'";
-                    $mysqli->query($removeLikeQuery); // Exécution de la requête
-                } else {
-                    // L'utilisateur n'a pas liké, donc on ajoute le like
-                    $insertLikeQuery = "INSERT INTO likes (user_id, post_id) VALUES ('$userId', '$postId')";
-                    $mysqli->query($insertLikeQuery); // Exécution de la requête
-                }
-
-                // Redirection pour éviter la répétition du POST lors du rechargement de la page
-                header("Location: " . $_SERVER['REQUEST_URI'] . "#" . $postId);
-                exit();
-            }
-        }
-
         // Boucle d'affichage des posts
         while ($post = $lesInformations->fetch_assoc()) {
-            // Vérifier si l'utilisateur a déjà liké ce post
-            $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '" . $post['id'] . "'";
-            $likeResult = $mysqli->query($checkLikeQuery);
-            $userHasLiked = ($likeResult->num_rows > 0);
+            $userHasLiked = hasUserLikedPost($userId, $post['id'], $mysqli);
             ?>
-            <article id="<?php echo $post['id']; ?>">
+            <article id="post-<?php echo $post['id']; ?>">
                 <h3><time><?php echo $post['created'] ?></time></h3>
                 <address><a href="wall.php?user_id=<?php echo $post['author_id'] ?>"><?php echo $post['author_name'] ?></a></address>
                 <div><p><?php echo $post['content'] ?></p></div>
@@ -249,28 +225,21 @@ echo $head;
                     <!-- Affichage du nombre total de likes pour le post -->
                     <small>&nbsp<?php echo $post['like_number']; ?> likes</small>
                     <?php
-                    // Afficher les tags comme liens cliquables
+                    // Affichage des tags
                     $tagsArray = explode(',', $post['taglist']);
                     foreach ($tagsArray as $tag) {
-                        // On crée une requête qui permet de récupérer l'ID des tags
-                        $checkTagId = "SELECT id FROM `tags` WHERE label = ?";
-                        $stmtTag = $mysqli->prepare($checkTagId);
-                        $stmtTag->bind_param("s", $tag);
-                        $stmtTag->execute();
-                        $TagResult = $stmtTag->get_result();
+                        // Récupération de l'ID du tag
+                        $checkTagId = "SELECT id FROM `tags` WHERE label = '$tag'";
+                        $TagResult = $mysqli->query($checkTagId);
                         $TagId = $TagResult->fetch_assoc();
 
-                        // Vérifier si un tag a été trouvé
                         if ($TagId) {
                             echo '<a href="tags.php?tag_id=' . $TagId["id"] . '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
-                        }
-                        else {
-                            echo '#' ;
-
+                        } else {
+                            echo '#' . htmlspecialchars($tag) . ' ';
                         }
                     }
                     ?>
-
                 </footer>
             </article>
         <?php } ?>

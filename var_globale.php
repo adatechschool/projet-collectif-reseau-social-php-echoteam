@@ -94,4 +94,47 @@ $head = '
 //    echo("Échec de la requete : " . $mysqli->error);
 //}
 
+function handleLikes($userId, $mysqli) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
+        $postId = intval($_POST['post_id']);
+        if ($postId > 0) {
+            $checkLikeQuery = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+            $stmt = $mysqli->prepare($checkLikeQuery);
+            $stmt->bind_param("ii", $userId, $postId);
+            $stmt->execute();
+            $likeResult = $stmt->get_result();
+
+            if ($likeResult->num_rows > 0) {
+                // Si le like existe déjà, on le supprime
+                $removeLikeQuery = "DELETE FROM likes WHERE user_id = ? AND post_id = ?";
+                $stmt = $mysqli->prepare($removeLikeQuery);
+                $stmt->bind_param("ii", $userId, $postId);
+                $stmt->execute();
+            } else {
+                // Si le like n'existe pas, on l'ajoute
+                $insertLikeQuery = "INSERT INTO likes (user_id, post_id) VALUES (?, ?)";
+                $stmt = $mysqli->prepare($insertLikeQuery);
+                $stmt->bind_param("ii", $userId, $postId);
+                $stmt->execute();
+            }
+
+            // Redirection vers la même page avec l'ancre du post
+            $currentPage = $_SERVER['PHP_SELF'];
+            $queryString = $_SERVER['QUERY_STRING'];
+            $redirectUrl = $currentPage . ($queryString ? "?$queryString" : "") . "#post-" . $postId;
+            header("Location: $redirectUrl");
+            exit();
+        }
+    }
+}
+
+function hasUserLikedPost($userId, $postId, $mysqli) {
+    $checkLikeQuery = "SELECT * FROM likes WHERE user_id = ? AND post_id = ?";
+    $stmt = $mysqli->prepare($checkLikeQuery);
+    $stmt->bind_param("ii", $userId, $postId);
+    $stmt->execute();
+    return $stmt->get_result()->num_rows > 0;
+}
+
+
 ?>
