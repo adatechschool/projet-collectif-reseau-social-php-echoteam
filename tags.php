@@ -103,7 +103,7 @@ echo $head;
                     </div>
 
                     <footer>
-                        <small>♥ <?php echo $post['like_number']; ?></small>
+                        <small>♥&nbsp<?php echo $post['like_number']; ?></small>
                         <?php
                         // Afficher les tags comme liens cliquables
                         $tagsArray = explode(',', $post['taglist']);
