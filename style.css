@@ -2,8 +2,7 @@ body{
   text-decoration: none;
   background-color: #0D7C66;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-    max-height: 90vh;
-    overflow: hidden;
+  overflow-y: hidden;
 }
 
 
@@ -138,6 +137,7 @@ body>header #user:hover ul{
 #wrapper main{
   flex:3;
   padding-left:1em;
+  padding-right: 1em;
   height: 80vh;
   overflow-y:  scroll;
 }
@@ -224,7 +224,7 @@ pre{
   color:#aaa;
 }
 form textarea{border-color: #0D7C66;
-border-radius: 3em;}
+;}
 #mot_cle{color: #D7C3F1;
 
   border: 1px solid #0D7C66;
