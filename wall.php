@@ -241,7 +241,7 @@ echo $head;
                         </form>
                     </small>
                     <!-- Affichage du nombre total de likes pour le post -->
-                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <small>&nbsp<?php echo $post['like_number']; ?> likes</small>
                     <?php
                     // Afficher les tags comme liens cliquables
                     $tagsArray = explode(',', $post['taglist']);
