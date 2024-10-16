@@ -100,11 +100,21 @@ body>header #user:hover ul{
   text-align: center;
     color: #605678;
   }
+
   #wrapper aside h2{
     font-size: xxx-large;
     text-align: center;
       color: #605678;
     }
+    li::marker {
+      color:#D7C3F1;
+    }
+    #wrapper aside section ul li a{
+     
+      color: #605678;
+       text-decoration: none;
+        
+      }
     #wrapper aside p{
       font-size: large;
       font-weight: bolder;
@@ -211,7 +221,17 @@ body>header #user:hover ul{
 pre{
   color:#aaa;
 }
+form textarea{border-color: #0D7C66;
+border-radius: 3em;}
+#mot_cle{color: #D7C3F1;
+  
+  border: 1px solid #0D7C66;
+  border-radius: 3em;}
 
+form input {color: #D7C3F1;
+  background-color: #605678;
+  border: 1px solid #0D7C66;
+  border-radius: 3em;}
 form dl dt{float:left;font-weight: bold;line-height: 1.5em;}
 form dl dd{margin-left:10em;line-height: 1.5em;margin-bottom: 1em}
 form dl dd textarea{width:40em;height: 15em;}
