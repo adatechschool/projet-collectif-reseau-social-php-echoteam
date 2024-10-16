@@ -2,6 +2,7 @@ body{
   text-decoration: none;
   background-color: #0D7C66;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  overflow-y: hidden;
 }
 
 
@@ -15,7 +16,7 @@ body>header{
   border-radius: 3em;
   background-color: #605678;
   display:flex;
-  width:80em;
+  width:100%;
   margin:0 auto 2em auto;
   padding:0;
 
@@ -87,7 +88,7 @@ body>header #user:hover ul{
 
 #wrapper{
   display:flex;
-  width:90%;
+  width:100%;
   margin:0 auto 2em auto;
 }
 #wrapper aside{
@@ -136,6 +137,7 @@ body>header #user:hover ul{
 #wrapper main{
   flex:3;
   padding-left:1em;
+  padding-right: 1em;
   height: 80vh;
   overflow-y:  scroll;
 }
@@ -222,7 +224,7 @@ pre{
   color:#aaa;
 }
 form textarea{border-color: #0D7C66;
-border-radius: 3em;}
+;}
 #mot_cle{color: #D7C3F1;
   
   border: 1px solid #0D7C66;

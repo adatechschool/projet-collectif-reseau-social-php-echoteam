@@ -55,7 +55,7 @@ $head = '
             if (isset($_SESSION['role']) && $_SESSION['role']==='admin') {
                 $head .= '<a href="admin.php">Admin</a>';
              }
-           // vu sur internet à verif  ( !empty($_SESSION['droit']) && $_SESSION['droit'] === "admin" )
+           // vu sur internet à verif  (!empty($_SESSION['droit']) && $_SESSION['droit'] === "admin" )
            $head.= '</nav>
         <nav id="user">
             <a href="#">Profil</a>
