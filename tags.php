@@ -25,8 +25,6 @@ echo $head;
             $lesInformations = $stmt->get_result();
             $tag = $lesInformations->fetch_assoc();
 
-            // Afficher la photo de l'utilisatrice
-            echo '<img src="user.jpg" alt="Portrait de l\'utilisatrice"/>';
 
             // Section Présentation avec le tag sélectionné
             echo '<section>';
