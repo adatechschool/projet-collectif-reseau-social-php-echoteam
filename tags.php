@@ -10,8 +10,6 @@ echo $head;
         <?php
         // Vérifier si un tag est sélectionné
         if ($tagId == 0) {
-            // Afficher la photo de l'utilisatrice
-            echo '<img src="user.jpg" alt="Portrait de l\'utilisatrice"/>';
             // Section Présentation
             echo '<section>';
             echo '<h3>Présentations</h3>';

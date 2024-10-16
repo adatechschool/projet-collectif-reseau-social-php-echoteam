@@ -15,7 +15,6 @@ echo $head;
         $user = $lesInformations->fetch_assoc();
         ?>
 
-        <img src="user.jpg" alt="Portrait de l'utilisatrice" />
         <section>
             <h3>Présentation</h3>
             <p>Sur cette page vous trouverez tous les messages des utilisateur·ices
@@ -106,8 +105,14 @@ echo $head;
                         $checkTagId= "SELECT id FROM `tags` WHERE label ='$tag'";
                         $TagResult = $mysqli->query($checkTagId);
                         $TagId = $TagResult->fetch_assoc();
-                        echo '<a href="tags.php?tag_id=' .  $TagId["id"]. '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
+                    // Vérifier si un tag a été trouvé
+                    if ($TagId) {
+                        echo '<a href="tags.php?tag_id=' . $TagId["id"] . '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
                     }
+                    else {
+                        echo '#' ;
+
+                    }}
                     ?>
                 </footer>
             </article>
