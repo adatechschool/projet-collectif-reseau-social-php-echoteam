@@ -14,7 +14,7 @@ echo $head;
         $user = $lesInformations->fetch_assoc();
         ?>
 
-        <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+        <img src="user.png" alt="Portrait de l'utilisatrice" />
         <section>
             <h3>Présentation</h3>
             <p>Sur cette page vous trouverez tous les messages de l'utilisatrice :
@@ -246,13 +246,25 @@ echo $head;
                     // Afficher les tags comme liens cliquables
                     $tagsArray = explode(',', $post['taglist']);
                     foreach ($tagsArray as $tag) {
-                        // On crée une requête qui permet de récupérer les tags
-                        $checkTagId= "SELECT id FROM `tags` WHERE label ='$tag'";
-                        $TagResult = $mysqli->query($checkTagId);
+                        // On crée une requête qui permet de récupérer l'ID des tags
+                        $checkTagId = "SELECT id FROM `tags` WHERE label = ?";
+                        $stmtTag = $mysqli->prepare($checkTagId);
+                        $stmtTag->bind_param("s", $tag);
+                        $stmtTag->execute();
+                        $TagResult = $stmtTag->get_result();
                         $TagId = $TagResult->fetch_assoc();
-                        echo '<a href="tags.php?tag_id=' .  $TagId["id"]. '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
+
+                        // Vérifier si un tag a été trouvé
+                        if ($TagId) {
+                            echo '<a href="tags.php?tag_id=' . $TagId["id"] . '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
+                        }
+                        else {
+                            echo '#' ;
+
+                        }
                     }
                     ?>
+
                 </footer>
             </article>
         <?php } ?>

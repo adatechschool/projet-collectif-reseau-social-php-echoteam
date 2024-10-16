@@ -7,12 +7,16 @@ echo $head;
 
         <div id="wrapper" >
 
-            <aside>
-                <h2>  ⚠️ </h2>
-                <p>Connexion obligatoire pour accéder au site!</p>
-            </aside>
+
             <main>
+
                 <article>
+                    <?php
+                    if (!isset($_SESSION['connected_id'])) {
+                        echo '<h2>⚠️</h2>
+          <p>Connexion obligatoire pour accéder au site!</p>';
+                    }
+                    ?>
                     <h2>Connexion</h2>
                     <?php
                     // vérifie si on est en train d'afficher ou de traiter le formulaire
