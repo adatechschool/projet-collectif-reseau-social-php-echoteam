@@ -31,6 +31,22 @@ function redirect_login() {
         exit();
     }
 }
+// Vérification si l'utilisateur est un administrateur
+$is_admin=false; 
+if ($userId !=0){
+    $sqlAdminCheck = "SELECT role FROM users WHERE id = ?";
+    $stmt = $mysqli->prepare($sqlAdminCheck);
+    $stmt->bind_param("i", $_SESSION['connected_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc(); 
+    if ($user && $user['role']==='admin'){
+        $is_admin=true;
+    }
+    $stmt-> close();
+}
+
+
 // Stocke l'en-tête dans une variable
 $head = '
 <!DOCTYPE html>
@@ -50,9 +66,8 @@ $head = '
             <a href="wall.php">Mur</a>
             <a href="feed.php">Flux</a>
             <a href="tags.php">Mots-clés</a>';
-            echo $_SESSION['role'];
             // Vérification si l'utilisateur est admin via la session
-            if (isset($_SESSION['role']) && $_SESSION['role']==='admin') {
+            if ($is_admin) {
                 $head .= '<a href="admin.php">Admin</a>';
              }
            // vu sur internet à verif  (!empty($_SESSION['droit']) && $_SESSION['droit'] === "admin" )
