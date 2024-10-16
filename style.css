@@ -87,7 +87,7 @@ body>header #user:hover ul{
 
 #wrapper{
   display:flex;
-  width:80em;
+  width:90%;
   margin:0 auto 2em auto;
 }
 #wrapper aside{
@@ -148,7 +148,7 @@ body>header #user:hover ul{
   border-radius: 1em;
 }
 #wrapper main article h3{
-  color: #BDE8CA ;
+  color: #0D7C66 ;
   margin:0;
   padding:0;
   font-weight: normal;

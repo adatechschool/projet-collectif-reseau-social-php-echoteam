@@ -49,8 +49,14 @@ $head = '
             <a href="news.php">Actualités</a>
             <a href="wall.php">Mur</a>
             <a href="feed.php">Flux</a>
-            <a href="tags.php">Mots-clés</a>
-            </nav>
+            <a href="tags.php">Mots-clés</a>';
+            echo $_SESSION['role'];
+            // Vérification si l'utilisateur est admin via la session
+            if (isset($_SESSION['role']) && $_SESSION['role']==='admin') {
+                $head .= '<a href="admin.php">Admin</a>';
+             }
+           // vu sur internet à verif  ( !empty($_SESSION['droit']) && $_SESSION['droit'] === "admin" )
+           $head.= '</nav>
         <nav id="user">
             <a href="#">Profil</a>
             <ul>
