@@ -26,7 +26,7 @@ echo $head;
             <?php
             $viewedUserId = isset($_GET['user_id']) ? intval($_GET['user_id']) : $userId;
 
-//Gestion de l'abonnement à un utilisateur :
+            //Gestion de l'abonnement à un utilisateur :
 
             if ($viewedUserId !== $_SESSION['connected_id']) {
                 $laQuestionEnSql = "SELECT * FROM followers WHERE followed_user_id = ? AND following_user_id = ?";
@@ -82,7 +82,7 @@ echo $head;
     </aside>
     <main id="main-content">
 
-<!--        Poster un message : -->
+        <!--        Poster un message : -->
 
         <?php
         if ($userId == $_SESSION['connected_id']) {
@@ -171,7 +171,7 @@ echo $head;
 
         <?php
 
-// Gestion des likes
+        // Gestion des likes
         // Requête SQL pour récupérer les posts et le nombre total de likes
         $laQuestionEnSql = "SELECT posts.id,
         posts.content,
@@ -220,7 +220,7 @@ echo $head;
             }
         }
 
-// Boucle d'affichage des posts
+        // Boucle d'affichage des posts
         while ($post = $lesInformations->fetch_assoc()) {
             // Vérifier si l'utilisateur a déjà liké ce post
             $checkLikeQuery = "SELECT * FROM likes WHERE user_id = '$userId' AND post_id = '" . $post['id'] . "'";
@@ -240,9 +240,19 @@ echo $head;
                             </button>
                         </form>
                     </small>
-                    <!-- Affichage du nombre total de likes pour le post  &nbsp; création d'un espace entre le boutons et le total des likes-->
-                    <small> &nbsp;<?php echo $post['like_number'] ; ?> likes</small>
-                    <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
+                    <!-- Affichage du nombre total de likes pour le post -->
+                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <?php
+                    // Afficher les tags comme liens cliquables
+                    $tagsArray = explode(',', $post['taglist']);
+                    foreach ($tagsArray as $tag) {
+                        // On crée une requête qui permet de récupérer les tags
+                        $checkTagId= "SELECT id FROM `tags` WHERE label ='$tag'";
+                        $TagResult = $mysqli->query($checkTagId);
+                        $TagId = $TagResult->fetch_assoc();
+                        echo '<a href="tags.php?tag_id=' .  $TagId["id"]. '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
+                    }
+                    ?>
                 </footer>
             </article>
         <?php } ?>

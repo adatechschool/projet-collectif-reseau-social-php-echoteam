@@ -3,12 +3,14 @@ session_start();
 
 if (isset($_GET['user_id'])) {
     $userId = intval($_GET['user_id']);
-} elseif (isset($_POST['user_id'])) {  // Ajout de la vérification pour POST
+} elseif (isset($_POST['user_id'])) {
     $userId = intval($_POST['user_id']);
-} else {
+} elseif (isset($_SESSION['connected_id'])) {  // Vérification si la session est définie
     $userId = $_SESSION['connected_id'];
+} else {
+    // Si aucune méthode pour obtenir l'ID utilisateur n'est trouvée, redirection ou gestion
+    $userId = 0; // Ou une autre gestion d'erreur, par exemple une redirection vers login.php
 }
-
 
 $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
 

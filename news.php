@@ -86,8 +86,18 @@ ORDER BY posts.created DESC;";
                         </form>
                     </small>
                     <!-- Affichage du nombre total de likes pour le post -->
-                    <small>&nbsp<?php echo $post['like_number']; ?> likes</small>
-                    <a href=""><?php echo "# "; echo $post['taglist']; ; ?></a>
+                    <small><?php echo $post['like_number']; ?> likes</small>
+                    <?php
+                    // Afficher les tags comme liens cliquables
+                    $tagsArray = explode(',', $post['taglist']);
+                    foreach ($tagsArray as $tag) {
+                        // On crée une requête qui permet de récupérer les tags
+                        $checkTagId= "SELECT id FROM `tags` WHERE label ='$tag'";
+                        $TagResult = $mysqli->query($checkTagId);
+                        $TagId = $TagResult->fetch_assoc();
+                        echo '<a href="tags.php?tag_id=' .  $TagId["id"]. '" class="tag-link">#' . htmlspecialchars($tag) . '</a> ';
+                    }
+                    ?>
 
                 </footer>
             </article>

@@ -130,7 +130,7 @@ body>header #user:hover ul{
   overflow-y:  scroll;
 }
 #wrapper main article{
-  text-align: center;
+  text-align: justify;
   color: #605678;
   background-color: #BDE8CA;
   padding:1em;
