@@ -50,7 +50,7 @@ $head = '
             <a href="wall.php">Mur</a>
             <a href="feed.php">Flux</a>
             <a href="tags.php">Mots-clés</a>';
-            echo $_SESSION['role'];
+//            echo $_SESSION['role'];
             // Vérification si l'utilisateur est admin via la session
             if (isset($_SESSION['role']) && $_SESSION['role']==='admin') {
                 $head .= '<a href="admin.php">Admin</a>';
