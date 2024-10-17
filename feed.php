@@ -57,7 +57,7 @@ handleLikes($userId, $mysqli); // Appel de la fonction avant de récupérer les 
             <article id="post-<?php echo $post['id']; ?>">
                 <h3><time><?php echo $post['created']; ?></time></h3>
                 <address><a href="wall.php?user_id=<?php echo $post['author_id']; ?>"><?php echo $post['author_name']; ?></a></address>
-                <div><p><?php echo $post['content']; ?></p></div>
+                <div><p><?php echo nl2br(htmlspecialchars(stripslashes($post['content']), ENT_QUOTES, 'UTF-8')); ?></p></div>
                 <footer>
                     <small>
                         <form method="post" class="like-form">
